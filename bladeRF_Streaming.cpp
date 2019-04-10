@@ -283,8 +283,7 @@ int bladeRF_SoapySDR::readStream(
     const long timeoutUs)
 {
     //clip to the available conversion buffer size
-        //numElems = std::min(numElems, _rxBuffSize);
-        //numElems = 8192;
+    numElems = std::min(numElems, _rxBuffSize);
 
     //extract the front-most command
     //no command, this is a timeout...
