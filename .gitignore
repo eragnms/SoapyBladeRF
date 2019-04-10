@@ -1,0 +1,89 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Autotools
+/autom4te.cache/
+/config/
+Makefile
+Makefile.in
+aclocal.m4
+app.info
+compile
+config.h
+config.h.in
+config.log
+config.status
+configure
+configure.scan
+coverage_report
+depcomp
+install-sh
+libtool
+m4
+missing
+stamp-h1
+*~
+*.html
+*.log
+*.o
+*.la
+*.so*
+*.a
+.deps
+*.tar*
+*.zip
+*.lo
+*.gcno
+*.gcda
+src/bin/dfym
+ltmain.sh
+
+# Mats
+*~
+GPATH
+GRTAGS
+GTAGS
+GSYMS
+#*
+*#
+.#
+.#*
+build
+.dirstamp
+*.trs
+*.it
+patches
+valgrind/*.core.*
+test-driver
+*.arm
+SoapySDR_TXRX_Burst_Tester/Release/SoapySDR_TXRX_Burst_Tester
