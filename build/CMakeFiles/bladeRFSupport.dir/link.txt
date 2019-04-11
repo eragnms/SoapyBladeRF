@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG  -Wl,--no-undefined -shared  -o libbladeRFSupport.so CMakeFiles/bladeRFSupport.dir/bladeRF_Registration.cpp.o CMakeFiles/bladeRFSupport.dir/bladeRF_Settings.cpp.o CMakeFiles/bladeRFSupport.dir/bladeRF_Streaming.cpp.o CMakeFiles/bladeRFSupport.dir/Version.cpp.o -Wl,-rpath,/usr/local/lib: /usr/local/lib/libbladeRF.so -lSoapySDR 

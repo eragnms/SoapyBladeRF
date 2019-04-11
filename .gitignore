@@ -78,7 +78,6 @@ GSYMS
 *#
 .#
 .#*
-build
 .dirstamp
 *.trs
 *.it
