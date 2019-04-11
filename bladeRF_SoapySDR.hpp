@@ -363,6 +363,7 @@ private:
         std::string _xb200Mode;
         std::string _samplingMode;
         std::string _loopbackMode;
+        bool _is_beacon;
 
         bladerf *_dev;
 };

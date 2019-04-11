@@ -90,6 +90,13 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
         const std::vector<size_t> &channels_,
         const SoapySDR::Kwargs &args)
 {
+        _is_beacon = (args.count("beacon") > 0);
+        if (_is_beacon) {
+                std::cout << "*** BEACON ***" << std::endl;
+        } else {
+                std::cout << "*** TAG *** " << std::endl;
+        }
+
         auto channels = channels_;
         if (channels.empty()) channels.push_back(0);
 
@@ -130,9 +137,11 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
         if (numXfers > 32) numXfers = 32; //libusb limit
 
         //setup the stream for sync tx/rx calls
-        numBuffs = 16;
-        bufSize = 8192;
-        numXfers = 8;
+        if (not _is_beacon) {
+                numBuffs = 16;
+                bufSize = 8192;
+                numXfers = 8;
+        }
         int ret = bladerf_sync_config(
                 _dev,
                 layout,
@@ -286,7 +295,9 @@ int bladeRF_SoapySDR::readStream(
         const long timeoutUs)
 {
         //clip to the available conversion buffer size
-        //numElems = std::min(numElems, _rxBuffSize);
+        if (_is_beacon) {
+                numElems = std::min(numElems, _rxBuffSize);
+        }
 
         //extract the front-most command
         //no command, this is a timeout...
