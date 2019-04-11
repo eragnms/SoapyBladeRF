@@ -130,6 +130,9 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
         if (numXfers > 32) numXfers = 32; //libusb limit
 
         //setup the stream for sync tx/rx calls
+        numBuffs = 16;
+        bufSize = 8192;
+        numXfers = 8;
         int ret = bladerf_sync_config(
                 _dev,
                 layout,
@@ -283,7 +286,7 @@ int bladeRF_SoapySDR::readStream(
         const long timeoutUs)
 {
         //clip to the available conversion buffer size
-        numElems = std::min(numElems, _rxBuffSize);
+        //numElems = std::min(numElems, _rxBuffSize);
 
         //extract the front-most command
         //no command, this is a timeout...
@@ -376,8 +379,8 @@ int bladeRF_SoapySDR::readStream(
         //parse the status
         if ((md.status & BLADERF_META_STATUS_OVERRUN) != 0)
         {
-                SoapySDR::log(SOAPY_SDR_SSI, "0");
-                _rxOverflow = true;
+                //SoapySDR::log(SOAPY_SDR_SSI, "0");
+                //_rxOverflow = true;
         }
 
         //consume from the command if this is a finite burst
