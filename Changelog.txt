@@ -1,3 +1,10 @@
+Release 0.5.3-wittra (2019-04-13)
+=================================
+
+- Modifies so that an arbitrarly sized amount of data can be read
+- Lets the lib know about being beacon or tag
+- Adds "wittra" to version number
+
 Release 0.4.1 (2019-01-26)
 ==========================
 
