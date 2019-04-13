@@ -1,7 +1,0 @@
-/home/mats/projects/SoapyBladeRF/build/CMakeFiles/install/strip.dir
-/home/mats/projects/SoapyBladeRF/build/CMakeFiles/edit_cache.dir
-/home/mats/projects/SoapyBladeRF/build/CMakeFiles/bladeRFSupport.dir
-/home/mats/projects/SoapyBladeRF/build/CMakeFiles/list_install_components.dir
-/home/mats/projects/SoapyBladeRF/build/CMakeFiles/install/local.dir
-/home/mats/projects/SoapyBladeRF/build/CMakeFiles/rebuild_cache.dir
-/home/mats/projects/SoapyBladeRF/build/CMakeFiles/install.dir
