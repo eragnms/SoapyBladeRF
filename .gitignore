@@ -86,3 +86,4 @@ valgrind/*.core.*
 test-driver
 *.arm
 SoapySDR_TXRX_Burst_Tester/Release/SoapySDR_TXRX_Burst_Tester
+build/*
