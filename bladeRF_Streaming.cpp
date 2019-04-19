@@ -105,10 +105,12 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
         if (channels.size() == 1 and channels.at(0) == 0)
         {
                 layout = (direction == SOAPY_SDR_RX)?BLADERF_RX_X1:BLADERF_TX_X1;
+                std::cout << "*** 1 ***" << std::endl;
         }
         else if (channels.size() == 2 and channels.at(0) == 0 and channels.at(1) == 1)
         {
                 layout = (direction == SOAPY_SDR_RX)?BLADERF_RX_X2:BLADERF_TX_X2;
+                std::cout << "*** 2 ***" << std::endl;
         }
         else
         {
