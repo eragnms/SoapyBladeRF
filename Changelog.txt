@@ -1,7 +1,7 @@
 Release 0.5.4-wittra (2019-04-19)
 =================================
 
-- Trying to increase the TX gain
+- Trying to fix RX on old board.
 
 Release 0.5.3-wittra (2019-04-13)
 =================================

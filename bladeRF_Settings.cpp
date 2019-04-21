@@ -56,9 +56,16 @@ bladeRF_SoapySDR::bladeRF_SoapySDR(const bladerf_devinfo &devinfo):
         _dev(NULL)
 
 {
-        bladerf_devinfo info = devinfo;
+        std::string scanner_id = "a662f87f08f131e8dc3f4700c5d555e7";
+        struct bladerf_devinfo dev_info;
+        bladerf_init_devinfo(&dev_info);
+        strncpy(dev_info.serial,
+                scanner_id.c_str(),
+                sizeof(dev_info.serial)-1);
+
+        //bladerf_devinfo info = devinfo;
         SoapySDR::logf(SOAPY_SDR_INFO, "bladerf_open_with_devinfo()");
-        int ret = bladerf_open_with_devinfo(&_dev, &info);
+        int ret = bladerf_open_with_devinfo(&_dev, &dev_info);
 
         if (ret < 0)
         {
@@ -319,8 +326,10 @@ bool bladeRF_SoapySDR::hasGainMode(const int direction, const size_t channel) co
 
 void bladeRF_SoapySDR::setGainMode(const int direction, const size_t channel, const bool automatic)
 {
+        std::cout << "Running setGainMode" << std::endl;
         if (direction == SOAPY_SDR_TX) return; //not supported on tx
         bladerf_gain_mode gain_mode = automatic ? BLADERF_GAIN_AUTOMATIC : BLADERF_GAIN_MANUAL;
+        gain_mode = BLADERF_GAIN_MGC;
         const int ret = bladerf_set_gain_mode(_dev, _toch(direction, channel), gain_mode);
         if (ret != 0 and automatic) //only throw when mode is automatic, manual is default even when call bombs
         {

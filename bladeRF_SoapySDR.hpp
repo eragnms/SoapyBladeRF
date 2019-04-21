@@ -26,6 +26,8 @@
 #include <libbladeRF.h>
 #include <cstdio>
 #include <queue>
+#include <iostream>
+#include <string.h>
 
 #if defined(LIBBLADERF_API_VERSION) && (LIBBLADERF_API_VERSION >= 0x02000000)
 #else
