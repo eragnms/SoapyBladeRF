@@ -144,6 +144,11 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
                 bufSize = 8192;
                 numXfers = 8;
         }
+        if (_is_beacon) {
+                numBuffs = 16;
+                bufSize = 8192;
+                numXfers = 8;
+        }
         int ret = bladerf_sync_config(
                 _dev,
                 layout,
@@ -298,7 +303,7 @@ int bladeRF_SoapySDR::readStream(
 {
         //clip to the available conversion buffer size
         if (_is_beacon) {
-                numElems = std::min(numElems, _rxBuffSize);
+                //numElems = std::min(numElems, _rxBuffSize);
         }
 
         //extract the front-most command
