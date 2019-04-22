@@ -1,3 +1,8 @@
+Release 0.5.5-wittra (2019-04-22)
+=================================
+
+- Changes the way devinfo is done
+
 Release 0.5.4-wittra (2019-04-19)
 =================================
 
