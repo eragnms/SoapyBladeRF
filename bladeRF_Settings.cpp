@@ -56,16 +56,18 @@ bladeRF_SoapySDR::bladeRF_SoapySDR(const bladerf_devinfo &devinfo):
         _dev(NULL)
 
 {
+        /*
         std::string scanner_id = "a662f87f08f131e8dc3f4700c5d555e7";
         struct bladerf_devinfo dev_info;
         bladerf_init_devinfo(&dev_info);
         strncpy(dev_info.serial,
                 scanner_id.c_str(),
                 sizeof(dev_info.serial)-1);
+        */
 
-        //bladerf_devinfo info = devinfo;
+        bladerf_devinfo info = devinfo;
         SoapySDR::logf(SOAPY_SDR_INFO, "bladerf_open_with_devinfo()");
-        int ret = bladerf_open_with_devinfo(&_dev, &dev_info);
+        int ret = bladerf_open_with_devinfo(&_dev, &info);
 
         if (ret < 0)
         {
