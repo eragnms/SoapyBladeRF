@@ -348,12 +348,19 @@ int bladeRF_SoapySDR::readStream(
                   << std::endl;
 
         if (timeNsRx != 0) {
-                std::cout << "HW ns wanted RX in ticks: " << _timeNsToRxTicks(timeNsRx)
+                uint64_t timeNsRX_hw_ticks = _timeNsToRxTicks(timeNsRx);
+                std::cout << "HW ns wanted RX in ticks: " << timeNsRX_hw_ticks
                           << " in ns " << timeNsRx
                           << std::endl;
+                if (my_md.timestamp > timeNsRX_hw_ticks) {
+                        std::cout << "Wanted time is in the passed!"
+                                  << std::endl;
+                        return 0;
+                }
                 md.flags = 0;
                 //md.timestamp = my_md.timestamp + 1152000; // 150 ms in 7.68 Msps
                 md.timestamp = _timeNsToRxTicks(timeNsRx);
+
         }
 
         std::cout << "Calculated want to RX at: " << md.timestamp
