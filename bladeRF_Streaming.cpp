@@ -156,7 +156,7 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
                 numBuffs,
                 bufSize,
                 numXfers,
-                1000); //1 second timeout
+                3500); //3.5 seconds timeout
         if (ret != 0)
         {
                 SoapySDR::logf(SOAPY_SDR_ERROR, "bladerf_sync_config() returned %d", ret);
@@ -312,6 +312,7 @@ int bladeRF_SoapySDR::readStream(
         StreamMetadata &cmd = _rxCmds.front();
 
         //clear output metadata
+        long long timeNsRx = timeNs;
         flags = 0;
         timeNs = 0;
 
@@ -340,8 +341,28 @@ int bladeRF_SoapySDR::readStream(
         void *samples = (void *)buffs[0];
         if (_rxFloats or _rxChans.size() == 2) samples = _rxConvBuff;
 
+        bladerf_metadata my_md;
+        bladerf_get_timestamp(_dev, BLADERF_RX, &my_md.timestamp);
+        std::cout << "Read timestamp before RX: " << my_md.timestamp
+                  << " in ns " << _rxTicksToTimeNs(my_md.timestamp)
+                  << std::endl;
+
+        if (timeNsRx != 0) {
+                std::cout << "HW ns wanted RX in ticks: " << _timeNsToRxTicks(timeNsRx)
+                          << " in ns " << timeNsRx
+                          << std::endl;
+                md.flags = 0;
+                //md.timestamp = my_md.timestamp + 1152000; // 150 ms in 7.68 Msps
+                md.timestamp = _timeNsToRxTicks(timeNsRx);
+        }
+
+        std::cout << "Calculated want to RX at: " << md.timestamp
+                  << " in ns " << _rxTicksToTimeNs(md.timestamp)
+                  << std::endl;
+
         //recv the rx samples
-        const long timeoutMs = std::max(_rxMinTimeoutMs, timeoutUs/1000);
+        //const long timeoutMs = std::max(_rxMinTimeoutMs, timeoutUs/1000);
+        const long timeoutMs = 5000;
         int ret = bladerf_sync_rx(_dev, samples, numElems*_rxChans.size(), &md, timeoutMs);
         if (ret == BLADERF_ERR_TIMEOUT) return SOAPY_SDR_TIMEOUT;
         if (ret == BLADERF_ERR_TIME_PAST) return SOAPY_SDR_TIME_ERROR;
@@ -352,6 +373,15 @@ int bladeRF_SoapySDR::readStream(
                 SoapySDR::logf(SOAPY_SDR_ERROR, "bladerf_sync_rx() returned %s", _err2str(ret).c_str());
                 return SOAPY_SDR_STREAM_ERROR;
         }
+
+        std::cout << "RX'd at: " << md.timestamp
+                  << " in ns " << _rxTicksToTimeNs(md.timestamp)
+                  << std::endl;
+
+        bladerf_get_timestamp(_dev, BLADERF_RX, &my_md.timestamp);
+        std::cout << "Read timestamp after RX: " << my_md.timestamp
+                  << " in ns " << _rxTicksToTimeNs(my_md.timestamp)
+                  << std::endl;
 
         //actual count is number of samples in total all channels
         numElems = md.actual_count / _rxChans.size();
