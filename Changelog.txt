@@ -1,6 +1,7 @@
 Release 0.5.8-wittra (2019-05-07)
 =================================
 
+- Can deal with RX at specific timestamps
 
 Release 0.5.5-wittra (2019-04-22)
 =================================
