@@ -343,15 +343,15 @@ int bladeRF_SoapySDR::readStream(
 
         bladerf_metadata my_md;
         bladerf_get_timestamp(_dev, BLADERF_RX, &my_md.timestamp);
-        std::cout << "Read timestamp before RX: " << my_md.timestamp
+        /*std::cout << "Read timestamp before RX: " << my_md.timestamp
                   << " in ns " << _rxTicksToTimeNs(my_md.timestamp)
-                  << std::endl;
+                  << std::endl;*/
 
         if (timeNsRx != 0) {
                 uint64_t timeNsRX_hw_ticks = _timeNsToRxTicks(timeNsRx);
-                std::cout << "HW ns wanted RX in ticks: " << timeNsRX_hw_ticks
+                /*std::cout << "HW ns wanted RX in ticks: " << timeNsRX_hw_ticks
                           << " in ns " << timeNsRx
-                          << std::endl;
+                          << std::endl;*/
                 if (my_md.timestamp > timeNsRX_hw_ticks) {
                         std::cout << "Wanted time is in the passed!"
                                   << std::endl;
@@ -363,9 +363,9 @@ int bladeRF_SoapySDR::readStream(
 
         }
 
-        std::cout << "Calculated want to RX at: " << md.timestamp
+        /*std::cout << "Calculated want to RX at: " << md.timestamp
                   << " in ns " << _rxTicksToTimeNs(md.timestamp)
-                  << std::endl;
+                  << std::endl;*/
 
         //recv the rx samples
         //const long timeoutMs = std::max(_rxMinTimeoutMs, timeoutUs/1000);
@@ -381,14 +381,14 @@ int bladeRF_SoapySDR::readStream(
                 return SOAPY_SDR_STREAM_ERROR;
         }
 
-        std::cout << "RX'd at: " << md.timestamp
+        /*std::cout << "RX'd at: " << md.timestamp
                   << " in ns " << _rxTicksToTimeNs(md.timestamp)
-                  << std::endl;
+                  << std::endl;*/
 
-        bladerf_get_timestamp(_dev, BLADERF_RX, &my_md.timestamp);
+        /*bladerf_get_timestamp(_dev, BLADERF_RX, &my_md.timestamp);
         std::cout << "Read timestamp after RX: " << my_md.timestamp
                   << " in ns " << _rxTicksToTimeNs(my_md.timestamp)
-                  << std::endl;
+                  << std::endl;*/
 
         //actual count is number of samples in total all channels
         numElems = md.actual_count / _rxChans.size();
