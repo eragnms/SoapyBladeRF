@@ -102,15 +102,20 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
 
         //check the channel configuration
         bladerf_channel_layout layout;
+        if (direction == SOAPY_SDR_RX) {
+                std::cout << "RX" << std::endl;
+        } else {
+                std::cout << "TX" << std::endl;
+        }
         if (channels.size() == 1 and channels.at(0) == 0)
         {
                 layout = (direction == SOAPY_SDR_RX)?BLADERF_RX_X1:BLADERF_TX_X1;
-                std::cout << "*** 1 ***" << std::endl;
+                std::cout << "*** 1 channel ***" << std::endl;
         }
         else if (channels.size() == 2 and channels.at(0) == 0 and channels.at(1) == 1)
         {
                 layout = (direction == SOAPY_SDR_RX)?BLADERF_RX_X2:BLADERF_TX_X2;
-                std::cout << "*** 2 ***" << std::endl;
+                std::cout << "*** 2 channels ***" << std::endl;
         }
         else
         {
@@ -140,9 +145,9 @@ SoapySDR::Stream *bladeRF_SoapySDR::setupStream(
 
         //setup the stream for sync tx/rx calls
         if (not _is_beacon) {
-                numBuffs = 16;
-                bufSize = 8192;
-                numXfers = 8;
+                //numBuffs = 16;
+                //bufSize = 8192;
+                //numXfers = 8;
         }
         if (_is_beacon) {
                 numBuffs = 16;
@@ -305,7 +310,7 @@ int bladeRF_SoapySDR::readStream(
         if (_is_beacon) {
                 //numElems = std::min(numElems, _rxBuffSize);
         }
-
+        numElems = std::min(numElems, _rxBuffSize);
         //extract the front-most command
         //no command, this is a timeout...
         if (_rxCmds.empty()) return SOAPY_SDR_TIMEOUT;
