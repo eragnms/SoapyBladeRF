@@ -353,10 +353,12 @@ int bladeRF_SoapySDR::readStream(
                           << " in ns " << timeNsRx
                           << std::endl;*/
                 if (my_md.timestamp > timeNsRX_hw_ticks) {
+                        /*
                         std::cout << "Wanted time is in the passed!"
                                   << " Diff: -"
                                   << my_md.timestamp - timeNsRX_hw_ticks
                                   << std::endl;
+                        */
                         //std::cout << "." << std::flush;
                         return 0;
                 }
