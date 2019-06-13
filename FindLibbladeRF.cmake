@@ -11,9 +11,17 @@ if(NOT LIBBLADERF_FOUND)
   find_library(LIBBLADERF_LIBRARIES NAMES bladeRF
     PATHS
     ${LIBBLADERF_PKG_LIBRARY_DIRS}
+    /usr/lib/aarch64-linux-gnu
     /usr/lib
     /usr/local/lib
   )
+
+if(LIBBLADERF_LIBRARIES)
+  message(STATUS "libbladeRF FOUND Mats.")
+  message(${LIBBLADERF_PKG_LIBRARY_DIRS})
+else(LIBBLADERF_LIBRARIES)
+  message(STATUS "libbladeRF NOT found Mats.")
+endif(LIBBLADERF_LIBRARIES)
 
 if(LIBBLADERF_INCLUDE_DIRS AND LIBBLADERF_LIBRARIES)
   set(LIBBLADERF_FOUND TRUE CACHE INTERNAL "libbladeRF found")
