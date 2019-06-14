@@ -512,6 +512,7 @@ int bladeRF_SoapySDR::writeStream(
         //perform the float to int16 conversion
         if (_txFloats and _txChans.size() == 1)
         {
+                std::cout << "*** 1 ***" << std::endl;
                 float *input = (float *)buffs[0];
                 for (size_t i = 0; i < 2 * numElems; i++)
                 {
@@ -520,6 +521,8 @@ int bladeRF_SoapySDR::writeStream(
         }
         else if (not _txFloats and _txChans.size() == 2)
         {
+                std::cout << "*** 2 ***" << std::endl;
+
                 int16_t *input0 = (int16_t *)buffs[0];
                 int16_t *input1 = (int16_t *)buffs[1];
                 for (size_t i = 0; i < 4 * numElems;)
@@ -532,6 +535,8 @@ int bladeRF_SoapySDR::writeStream(
         }
         else if (_txFloats and _txChans.size() == 2)
         {
+                std::cout << "*** 3 ***" << std::endl;
+
                 float *input0 = (float *)buffs[0];
                 float *input1 = (float *)buffs[1];
                 for (size_t i = 0; i < 4 * numElems;)
